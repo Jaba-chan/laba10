@@ -20,20 +20,12 @@ namespace laba10
         {
             InitializeComponent();
             canvas = new Canvas();
-            this.BackColor = Color.Aqua; 
+            this.BackColor = Color.FromArgb(200, 200, 200); 
             this.Size = new System.Drawing.Size(1450, 850);
             canvas.Location = new Point(border, border);
             
             this.Controls.Add(canvas);
         }
-
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-           
-            
-        } 
-
 
         private void cicleButton1_Click_1(object sender, EventArgs e)
         {
@@ -45,8 +37,22 @@ namespace laba10
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(canvas.Height);
-            canvas.Height = 900;
+            canvas.SetIndex(3);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            canvas.SetIndex(-1);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            canvas.SetIndex(-2);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            canvas.SetIndex(2);
         }
     }
 }
