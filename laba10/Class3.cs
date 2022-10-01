@@ -13,7 +13,7 @@ namespace laba10
         private Point _P2;
         private Rectangle _rectangle_;
         private Color _Brush_L;
-        private int _brush_weight;
+        private float _brush_weight;
         private int _index; 
         public static long Lenght_l;
 
@@ -37,7 +37,7 @@ namespace laba10
             get { return _Brush_L; }
             set { _Brush_L = value; }
         }
-        public int brush_weight
+        public float brush_weight
         {
             get { return _brush_weight;}
             set { _brush_weight = value; }
@@ -48,7 +48,7 @@ namespace laba10
             set { _index = value; }
         }
  
-        public LineList(Point _P1, Point _P2, Color _Brush_L, int _brush_weight, int _index)
+        public LineList(Point _P1, Point _P2, Color _Brush_L, float _brush_weight, int _index)
 
         {
             P1 = _P1;
@@ -58,7 +58,7 @@ namespace laba10
             index = _index;
             Lenght_l += 1;
         }
-        public LineList(Rectangle rect, Color _Brush_L, int _brush_weight, int _index)
+        public LineList(Rectangle rect, Color _Brush_L, float _brush_weight, int _index)
         {
             rectangle = rect;
             Brush_L = _Brush_L;

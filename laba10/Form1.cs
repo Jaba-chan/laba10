@@ -22,6 +22,8 @@ namespace laba10
             canvas = new Canvas();
             this.BackColor = Color.FromArgb(200, 200, 200); 
             this.Size = new System.Drawing.Size(1450, 850);
+            this.KeyPreview = true;
+            this.KeyDown += CancelAction;
             canvas.Location = new Point(border, border);
             
             this.Controls.Add(canvas);
@@ -34,23 +36,20 @@ namespace laba10
                 Color c = colorDialog1.Color;
             }
         }
+        public void CancelAction(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Z)
+            {
+                canvas.CancelActionCanvas();
+            }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            canvas.SetIndex(3);
+            canvas.SetIndex(1);
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            canvas.SetIndex(-1);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            canvas.SetIndex(-2);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
         {
             canvas.SetIndex(2);
         }
