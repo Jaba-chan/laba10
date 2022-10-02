@@ -53,5 +53,6 @@ namespace laba10
         {
             canvas.SetIndex(2);
         }
+
     }
 }

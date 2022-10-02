@@ -28,6 +28,7 @@ namespace laba10
         float weight_r;
         Rectangle rect_r;
 
+        Bitmap animation_image;
         Bitmap bm;
         Graphics g;
         public Canvas()
@@ -53,11 +54,17 @@ namespace laba10
                     g.DrawLine(pen1, p_1, p_2);
                     p_1 = p_2;
                 }
-                else if (index == 2)
+                else if (index == 1)
                 {
 
+                   
+                    p_2 = e.Location;
+                    g.DrawLine(pen1, p_1, p_2); 
+                    g = Graphics.FromImage(animation_image);
+                    this.Image = animation_image;
+                    this.Invalidate();
                 }
-                else if (index == 3)
+                else if (index == 6)
                 {
 
                 }
@@ -122,6 +129,8 @@ namespace laba10
             line_p1 = e.Location;
             p_1 = e.Location;
             is_painting = true;
+            animation_image = new Bitmap(Image);
+          
 
             if (e.Location.X > this.Width - grip && e.Location.X < this.Width + grip)
             {
@@ -183,7 +192,7 @@ namespace laba10
 
                     case 2:
                         rect_r = lines[lines.Count - 1].rectangle;
-                        g.DrawEllipse(pen_r, rect_r);         
+                        g.DrawEllipse(pen_r, rect_r);
                         break;
                 }
                 lines.RemoveAt(lines.Count - 1); 

@@ -29,25 +29,15 @@
         private void InitializeComponent()
         {
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.cicleButton1 = new laba10.CicleButton();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.cicleButton1 = new laba10.CicleButton();
             this.SuspendLayout();
             // 
             // colorDialog1
             // 
             this.colorDialog1.AnyColor = true;
             this.colorDialog1.FullOpen = true;
-            // 
-            // cicleButton1
-            // 
-            this.cicleButton1.BackColor = System.Drawing.Color.Red;
-            this.cicleButton1.Location = new System.Drawing.Point(1121, 172);
-            this.cicleButton1.Name = "cicleButton1";
-            this.cicleButton1.Size = new System.Drawing.Size(17, 17);
-            this.cicleButton1.TabIndex = 3;
-            this.cicleButton1.Text = "cicleButton1";
-            this.cicleButton1.Click += new System.EventHandler(this.cicleButton1_Click_1);
             // 
             // button1
             // 
@@ -68,6 +58,16 @@
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // cicleButton1
+            // 
+            this.cicleButton1.BackColor = System.Drawing.Color.Red;
+            this.cicleButton1.Location = new System.Drawing.Point(1121, 172);
+            this.cicleButton1.Name = "cicleButton1";
+            this.cicleButton1.Size = new System.Drawing.Size(17, 17);
+            this.cicleButton1.TabIndex = 3;
+            this.cicleButton1.Text = "cicleButton1";
+            this.cicleButton1.Click += new System.EventHandler(this.cicleButton1_Click_1);
             // 
             // Form1
             // 
