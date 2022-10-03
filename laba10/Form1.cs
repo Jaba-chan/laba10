@@ -19,13 +19,31 @@ namespace laba10
         public Form1()
         {
             InitializeComponent();
-            canvas = new Canvas();
+            Panel settings = new Panel();
+            settings.Size = new Size(this.Width, 40);
+            settings.Location = new Point(0, 0);
+            settings.BackColor = Color.Coral;
+            settings.Dock = DockStyle.Top;
+
+            Panel instruments = new Panel();
+            instruments.Size = new Size(this.Width, 120);
+            instruments.Location = new Point(0, settings.Height);
+            instruments.BackColor = Color.Gold;
+            instruments.Dock = DockStyle.Top;
+
+            
             this.BackColor = Color.FromArgb(200, 200, 200); 
             this.Size = new System.Drawing.Size(1450, 850);
             this.KeyPreview = true;
             this.KeyDown += CancelAction;
-            canvas.Location = new Point(border, border);
-            
+            this.Name = "MyPaint";
+
+            canvas = new Canvas();
+            canvas.Location = new Point(border, border + settings.Height + instruments.Height);
+
+
+            this.Controls.Add(instruments);
+            this.Controls.Add(settings);
             this.Controls.Add(canvas);
         }
 
@@ -54,5 +72,9 @@ namespace laba10
             canvas.SetIndex(2);
         }
 
+        private void customGroupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

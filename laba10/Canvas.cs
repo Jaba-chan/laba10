@@ -63,6 +63,7 @@ namespace laba10
                     g = Graphics.FromImage(animation_image);
                     this.Image = animation_image;
                     this.Invalidate();
+                    
                 }
                 else if (index == 6)
                 {
