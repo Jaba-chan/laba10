@@ -31,7 +31,15 @@ namespace laba10
             instruments.BackColor = Color.Gold;
             instruments.Dock = DockStyle.Top;
 
-            
+            CustomGroupBox buf = new CustomGroupBox();
+            instruments.Controls.Add(buf);
+            buf.Size = new Size(100, instruments.Height);
+            buf.Location = new Point(0, 0);
+
+            CustomGroupBox main = new CustomGroupBox();
+            instruments.Controls.Add(buf);
+            main.Size = new Size(100, instruments.Height);
+
             this.BackColor = Color.FromArgb(200, 200, 200); 
             this.Size = new System.Drawing.Size(1450, 850);
             this.KeyPreview = true;
@@ -45,15 +53,9 @@ namespace laba10
             this.Controls.Add(instruments);
             this.Controls.Add(settings);
             this.Controls.Add(canvas);
+            instruments.Controls.Add(cicleButton1);
         }
 
-        private void cicleButton1_Click_1(object sender, EventArgs e)
-        {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                Color c = colorDialog1.Color;
-            }
-        }
         public void CancelAction(object sender, KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Z)
@@ -72,9 +74,11 @@ namespace laba10
             canvas.SetIndex(2);
         }
 
-        private void customGroupBox1_Enter(object sender, EventArgs e)
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
+
     }
 }
