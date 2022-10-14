@@ -4,57 +4,44 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Dynamic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using System.Xml.Schema;
+
 
 namespace laba10
 {
+    
     public partial class Form1 : Form
     {
         const int border = 20;
+        float _radius = 10;
         Canvas canvas;
         public Form1()
         {
             InitializeComponent();
-            Panel settings = new Panel();
-            settings.Size = new Size(this.Width, 40);
-            settings.Location = new Point(0, 0);
-            settings.BackColor = Color.Coral;
-            settings.Dock = DockStyle.Top;
 
-            Panel instruments = new Panel();
-            instruments.Size = new Size(this.Width, 120);
-            instruments.Location = new Point(0, settings.Height);
-            instruments.BackColor = Color.Gold;
-            instruments.Dock = DockStyle.Top;
 
-            CustomGroupBox buf = new CustomGroupBox();
-            instruments.Controls.Add(buf);
-            buf.Size = new Size(100, instruments.Height);
-            buf.Location = new Point(0, 0);
-
-            CustomGroupBox main = new CustomGroupBox();
-            instruments.Controls.Add(buf);
-            main.Size = new Size(100, instruments.Height);
-
-            this.BackColor = Color.FromArgb(200, 200, 200); 
-            this.Size = new System.Drawing.Size(1450, 850);
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.BackColor = Color.FromArgb(200, 200, 200);
+            this.Size = new System.Drawing.Size(1450, 857);
             this.KeyPreview = true;
             this.KeyDown += CancelAction;
             this.Name = "MyPaint";
 
             canvas = new Canvas();
-            canvas.Location = new Point(border, border + settings.Height + instruments.Height);
+            canvas.Location = new Point(border, border);
 
-
-            this.Controls.Add(instruments);
-            this.Controls.Add(settings);
             this.Controls.Add(canvas);
-            instruments.Controls.Add(cicleButton1);
+
         }
+
 
         public void CancelAction(object sender, KeyEventArgs e)
         {
@@ -64,21 +51,54 @@ namespace laba10
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private GraphicsPath RoundedForm(RectangleF rect, float radius)
         {
-            canvas.SetIndex(1);
+            radius = 10F;
+            GraphicsPath graphics_path = new GraphicsPath();
+            graphics_path.StartFigure();
+            Debug.WriteLine($"{rect.X} {rect.Y} {rect.Right} {rect.Bottom}");
+            graphics_path.AddArc(rect.X, rect.Y, radius, radius, 180, 90);
+            graphics_path.AddArc(rect.Right - radius, rect.Y, radius, radius, 270, 90);
+            graphics_path.AddArc(rect.Right - radius, rect.Bottom - radius, radius, radius, 0, 90);
+            graphics_path.AddArc(rect.X, rect.Bottom - radius, radius, radius, 90, 90);
+
+            graphics_path.CloseFigure();
+            return graphics_path;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void OnPaintBoards(Form form, Graphics g)
+        {
+            using(GraphicsPath rounded_form = RoundedForm(form.ClientRectangle, _radius))
+            {
+                
+                form.Region = new Region(rounded_form);
+
+                g.DrawPath(new Pen(this.BackColor, 1F), rounded_form);
+                RectangleF rect = form.ClientRectangle;
+            
+                }   
+        }
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            OnPaintBoards(this, e.Graphics);
+        }
+
+        private void cicleButton1_Click(object sender, EventArgs e)
+        {
+            canvas.SetIndex(1);
+
+        }
+
+        private void cicleButton2_Click(object sender, EventArgs e)
         {
             canvas.SetIndex(2);
         }
 
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void cicleButton3_Click(object sender, EventArgs e)
         {
-
+            //canvas.TEST();
+            canvas.SetIndex(6);
         }
-
     }
 }

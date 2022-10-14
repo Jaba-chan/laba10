@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,12 +24,15 @@ namespace laba10
         Point p_1, p_2;
         int rect_x_1, rect_y_1, rect_x_2, rect_y_2;
 
+        Graphics pb_g;
+        PictureBox pb;
+        Bitmap pb_bm;
+
         Point p1_r, p2_r;
         Color color_r;
         float weight_r;
         Rectangle rect_r;
 
-        Bitmap animation_image;
         Bitmap bm;
         Graphics g;
         public Canvas()
@@ -38,10 +42,15 @@ namespace laba10
             MouseDown += canvas_MouseDown;
             MouseMove += canvas_MouseMove;
             MouseUp += canvas_MouseUp;
-            bm = new Bitmap(10000, 10000);
+            bm = new Bitmap(1000, 1000);
             g = Graphics.FromImage(bm);
             g.Clear(Color.White);
             this.Image = bm;
+        }
+        public Bitmap BM
+        {
+            get { return bm; }
+            set { bm = value; }
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
@@ -54,21 +63,21 @@ namespace laba10
                     g.DrawLine(pen1, p_1, p_2);
                     p_1 = p_2;
                 }
-                else if (index == 1)
-                {
-
-                   
+                else if (index == 6)
+                { 
                     p_2 = e.Location;
-                    g.DrawLine(pen1, p_1, p_2); 
-                    g = Graphics.FromImage(animation_image);
-                    this.Image = animation_image;
-                    this.Invalidate();
+                    pb_bm = new Bitmap(this.Width, this.Height);
+                    pb_g = Graphics.FromImage(pb_bm);
+                    pb_g.DrawImage(this.Image, 0, 0);
+                    pb.Image = pb_bm;
+                    pb_g.DrawLine(pen1, p_1, p_2);
                     
                 }
-                else if (index == 6)
+                else if (index == 9)
                 {
 
                 }
+                
             }
             if (resizeble_x | resizeble_y)
             {
@@ -103,6 +112,8 @@ namespace laba10
             resizeble_y = false;
             LineList new_l;
             Rectangle rect;
+            p_2 = e.Location;
+            if (index == 6) { pb.Dispose(); g.DrawLine(pen1, p_1, p_2); }
             switch (index)
             {
                 case 1:
@@ -122,17 +133,22 @@ namespace laba10
             }
             
         }
-
+   
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
+            if (index == 6)
+            {
+                pb = new PictureBox();
+                this.Controls.Add(pb);
+                pb.Size = this.Size;
+            }
+
             rect_x_1 = e.Location.X;
             rect_y_1 = e.Location.Y;
             line_p1 = e.Location;
             p_1 = e.Location;
             is_painting = true;
-            animation_image = new Bitmap(Image);
-          
-
+            
             if (e.Location.X > this.Width - grip && e.Location.X < this.Width + grip)
             {
                 resizeble_x = true;
@@ -179,7 +195,6 @@ namespace laba10
             try
             {
                 int ind = lines[lines.Count - 1].index;
-                Debug.WriteLine(lines.Count - 1);
                 color_r = BackColor;
                 weight_r = lines[lines.Count - 1].brush_weight;
                 Pen pen_r = new Pen(color_r, weight_r);

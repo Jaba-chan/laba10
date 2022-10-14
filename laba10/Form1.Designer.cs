@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.button1 = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.cicleButton2 = new laba10.CicleButton();
             this.cicleButton1 = new laba10.CicleButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.cicleButton3 = new laba10.CicleButton();
             this.SuspendLayout();
             // 
             // colorDialog1
@@ -38,45 +42,74 @@
             this.colorDialog1.AnyColor = true;
             this.colorDialog1.FullOpen = true;
             // 
-            // button1
+            // statusStrip1
             // 
-            this.button1.Location = new System.Drawing.Point(1917, 122);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 35);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 660);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1283, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // cicleButton2
+            // 
+            this.cicleButton2.BackColor = System.Drawing.Color.Red;
+            this.cicleButton2.Location = new System.Drawing.Point(903, 13);
+            this.cicleButton2.Name = "cicleButton2";
+            this.cicleButton2.Size = new System.Drawing.Size(17, 17);
+            this.cicleButton2.TabIndex = 4;
+            this.cicleButton2.Text = "cicleButton2";
+            this.cicleButton2.Click += new System.EventHandler(this.cicleButton2_Click);
             // 
             // cicleButton1
             // 
             this.cicleButton1.BackColor = System.Drawing.Color.Red;
-            this.cicleButton1.Location = new System.Drawing.Point(0, 0);
+            this.cicleButton1.Location = new System.Drawing.Point(880, 13);
             this.cicleButton1.Name = "cicleButton1";
             this.cicleButton1.Size = new System.Drawing.Size(17, 17);
-            this.cicleButton1.TabIndex = 0;
+            this.cicleButton1.TabIndex = 3;
+            this.cicleButton1.Text = "cicleButton1";
+            this.cicleButton1.Click += new System.EventHandler(this.cicleButton1_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            // 
+            // cicleButton3
+            // 
+            this.cicleButton3.BackColor = System.Drawing.Color.Red;
+            this.cicleButton3.Location = new System.Drawing.Point(903, 213);
+            this.cicleButton3.Name = "cicleButton3";
+            this.cicleButton3.Size = new System.Drawing.Size(17, 17);
+            this.cicleButton3.TabIndex = 5;
+            this.cicleButton3.Text = "cicleButton3";
+            this.cicleButton3.Click += new System.EventHandler(this.cicleButton3_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1924, 1050);
-            this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ClientSize = new System.Drawing.Size(1283, 682);
+            this.Controls.Add(this.cicleButton3);
+            this.Controls.Add(this.cicleButton2);
+            this.Controls.Add(this.cicleButton1);
+            this.Controls.Add(this.statusStrip1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
         private CicleButton cicleButton1;
-        private System.Windows.Forms.Button button1;
+        private CicleButton cicleButton2;
+        private System.Windows.Forms.Timer timer1;
+        private CicleButton cicleButton3;
     }
 }
 
