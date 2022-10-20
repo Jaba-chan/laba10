@@ -95,10 +95,22 @@ namespace laba10
             canvas.SetIndex(2);
         }
 
-        private void cicleButton3_Click(object sender, EventArgs e)
+        private void cicleButton4_Click(object sender, EventArgs e)
         {
-            //canvas.TEST();
-            canvas.SetIndex(6);
+            canvas.SetIndex(3);
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            canvas.BrushSize = (float)numericUpDown1.Value;
+            canvas.SetBrush(canvas.BrushColor, canvas.BrushSize);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            colorDialog2.ShowDialog();
+            canvas.BrushColor = colorDialog2.Color;
+            canvas.SetBrush(canvas.BrushColor, canvas.BrushSize);
         }
     }
 }

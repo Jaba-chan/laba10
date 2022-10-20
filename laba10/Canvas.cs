@@ -14,15 +14,16 @@ namespace laba10
     public class Canvas : PictureBox
     {
         List<LineList> lines = new List<LineList>();
-        Pen pen1 = new Pen(Brushes.Red, 2);
+        private Color _brush_color = Color.Black;
+        private float _brush_size;
+        Pen pen1 = new Pen(Color.Red, 2);
         Point line_p1, line_p2;
         private const int grip = 15;
         bool is_painting;
         bool resizeble_x;
         bool resizeble_y;
-        int index = 0;
+        int index = -100;
         Point p_1, p_2;
-        int rect_x_1, rect_y_1, rect_x_2, rect_y_2;
 
         Graphics pb_g;
         PictureBox pb;
@@ -47,38 +48,68 @@ namespace laba10
             g.Clear(Color.White);
             this.Image = bm;
         }
-        public Bitmap BM
+        public void SetIndex(int ind)
         {
-            get { return bm; }
-            set { bm = value; }
+            index = ind;
         }
-
+        public void SetBrush(Color n_c, float size)
+        {
+            pen1 = new Pen(n_c, size);
+            Debug.WriteLine(n_c);
+        }
+        public Color BrushColor
+        {
+            get { return _brush_color; }
+            set { _brush_color = value; }
+        }
+        public float BrushSize
+        {
+            get { return _brush_size; }
+            set { _brush_size = value; }
+        }
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if (is_painting)
+            if (is_painting && index > 0)
             {
-                if (index == 3)
-                {
-                    p_2 = e.Location;
-                    g.DrawLine(pen1, p_1, p_2);
-                    p_1 = p_2;
-                }
-                else if (index == 6)
-                { 
-                    p_2 = e.Location;
-                    pb_bm = new Bitmap(this.Width, this.Height);
-                    pb_g = Graphics.FromImage(pb_bm);
-                    pb_g.DrawImage(this.Image, 0, 0);
-                    pb.Image = pb_bm;
-                    pb_g.DrawLine(pen1, p_1, p_2);
-                    
-                }
-                else if (index == 9)
-                {
+                p_2 = e.Location;
+                pb_bm = new Bitmap(this.Width, this.Height);
+                pb_g = Graphics.FromImage(pb_bm);
+                pb_g.DrawImage(this.Image, 0, 0);
+                pb.Image = pb_bm;
 
+                switch (index)
+                {
+                    case 6:
+                        g.DrawLine(pen1, p_1, p_2);
+                        p_1 = p_2;
+                        break;
+                    case 1: 
+                        pb_g.DrawLine(pen1, p_1, p_2);
+                        break;
+                    case 2:
+                        pb_g.DrawEllipse(pen1, new Rectangle(p_1.X, p_1.Y, p_2.X - p_1.X, p_2.Y - p_1.Y));
+                        break;
+                    case 3:
+                        if (p_2.X < p_1.X && p_2.Y > p_1.Y)
+                        {
+                            pb_g.DrawRectangle(pen1, new Rectangle(p_2.X, p_1.Y, p_1.X - p_2.X, p_2.Y - p_1.Y));
+                        }
+                        else if (p_2.X < p_1.X && p_2.Y < p_1.Y)
+                        {
+                            pb_g.DrawRectangle(pen1, new Rectangle(p_2.X, p_2.Y, p_1.X - p_2.X, p_1.Y - p_2.Y));
+                        }
+                        else if (p_2.X > p_1.X && p_2.Y < p_1.Y)
+                        {
+                            pb_g.DrawRectangle(pen1, new Rectangle(p_1.X, p_2.Y, p_2.X - p_1.X, p_1.Y - p_2.Y));
+                        }
+                        else if (p_2.X > p_1.X && p_2.Y > p_1.Y)
+                        {
+                            pb_g.DrawRectangle(pen1, new Rectangle(p_1.X, p_1.Y, p_2.X - p_1.X, p_2.Y - p_1.Y));
+                        }
+                        break;
                 }
-                
             }
+
             if (resizeble_x | resizeble_y)
             {
                 int x, y;
@@ -112,39 +143,58 @@ namespace laba10
             resizeble_y = false;
             LineList new_l;
             Rectangle rect;
+
+            
             p_2 = e.Location;
-            if (index == 6) { pb.Dispose(); g.DrawLine(pen1, p_1, p_2); }
+            rect = new Rectangle(p_1.X, p_1.Y, p_2.X - p_1.X, p_2.Y - p_1.Y);
             switch (index)
             {
                 case 1:
-                    p_2 = e.Location;
                     new_l = new LineList(p_1, p_2, pen1.Color, pen1.Width, index);
                     lines.Add(new_l);
                     g.DrawLine(pen1, p_1, p_2);
                     break;
                 case 2:
-                    rect_x_2 = e.Location.X;
-                    rect_y_2 = e.Location.Y;
-                    rect = new Rectangle(new Point(rect_x_1, rect_y_1), new Size(rect_x_2 - rect_x_1, rect_y_2 - rect_y_1));
                     new_l = new LineList(rect, pen1.Color, pen1.Width, index);
+                    
                     g.DrawEllipse(pen1, rect);
                     lines.Add(new_l);
                     break;
+                case 3:
+                    if (p_2.X < p_1.X && p_2.Y > p_1.Y)
+                    {
+                       rect =  new Rectangle(p_2.X, p_1.Y, p_1.X - p_2.X, p_2.Y - p_1.Y);
+                    }
+                    else if (p_2.X < p_1.X && p_2.Y < p_1.Y)
+                    {
+                       rect = new Rectangle(p_2.X, p_2.Y, p_1.X - p_2.X, p_1.Y - p_2.Y);
+                    }
+                    else if (p_2.X > p_1.X && p_2.Y < p_1.Y)
+                    {
+                       rect = new Rectangle(p_1.X, p_2.Y, p_2.X - p_1.X, p_1.Y - p_2.Y);
+                    }
+                    else if (p_2.X > p_1.X && p_2.Y > p_1.Y)
+                    {
+                       rect = new Rectangle(p_1.X, p_1.Y, p_2.X - p_1.X, p_2.Y - p_1.Y);
+                    }
+                    new_l = new LineList (rect, pen1.Color, pen1.Width, index);
+                    g.DrawRectangle(pen1, rect);
+                    lines.Add(new_l);
+                    break;
             }
-            
+            if (index == 1 || index == 2 || index == 3)   {pb.Dispose();}
+            this.Refresh();  
         }
    
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
-            if (index == 6)
+            if (index == 1 || index == 2 || index == 3)
             {
                 pb = new PictureBox();
                 this.Controls.Add(pb);
                 pb.Size = this.Size;
             }
 
-            rect_x_1 = e.Location.X;
-            rect_y_1 = e.Location.Y;
             line_p1 = e.Location;
             p_1 = e.Location;
             is_painting = true;
@@ -160,10 +210,7 @@ namespace laba10
                 is_painting = false;
             }
         }
-        public void SetIndex(int ind)
-        {
-            index = ind;
-        }
+       
         public void RedrawALL()
         {
             for (int i = 0; i < lines.Count; i++)
@@ -172,6 +219,7 @@ namespace laba10
                 float weight_p = lines[i].brush_weight;
                 Color color1 = lines[i].Brush_L;
                 Pen pen = new Pen(color1, weight_p);
+
                 switch (ind)
                 {
                     case 1:
@@ -181,11 +229,13 @@ namespace laba10
                         break;
 
                     case 2:
-                        Rectangle rect = lines[i].rectangle;
-                        g.DrawEllipse(pen, rect);
-                        Debug.WriteLine(weight_p);
+                        Rectangle rect_elip = lines[i].rectangle;
+                        g.DrawEllipse(pen, rect_elip);
                         break;
-
+                    case 3:
+                        Rectangle rect_rect = lines[i].rectangle;
+                        g.DrawRectangle(pen, rect_rect);
+                        break;
                 }
                 this.Refresh();
             }
@@ -209,6 +259,10 @@ namespace laba10
                     case 2:
                         rect_r = lines[lines.Count - 1].rectangle;
                         g.DrawEllipse(pen_r, rect_r);
+                        break;
+                    case 3:
+                        rect_r = lines[(lines.Count - 1)].rectangle;
+                        g.DrawRectangle(pen_r, rect_r);
                         break;
                 }
                 lines.RemoveAt(lines.Count - 1); 
