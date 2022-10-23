@@ -16,13 +16,13 @@ namespace laba10
         List<LineList> lines = new List<LineList>();
         private Color _brush_color = Color.Black;
         private float _brush_size;
-        Pen pen1 = new Pen(Color.Red, 2);
+        Pen pen1 = new Pen(Color.Black, 2);
         Point line_p1, line_p2;
         private const int grip = 15;
         bool is_painting;
         bool resizeble_x;
         bool resizeble_y;
-        int index = -100;
+        int index = 1;
         Point p_1, p_2;
 
         Graphics pb_g;
@@ -34,8 +34,8 @@ namespace laba10
         float weight_r;
         Rectangle rect_r;
 
-        Bitmap bm;
-        Graphics g;
+        private Bitmap bm;
+        private Graphics g;
         public Canvas()
         {
             this.Size = new Size(600, 400);
@@ -52,10 +52,13 @@ namespace laba10
         {
             index = ind;
         }
+        public Bitmap CanvasGraphics
+        {
+            get { return bm; }
+        }
         public void SetBrush(Color n_c, float size)
         {
             pen1 = new Pen(n_c, size);
-            Debug.WriteLine(n_c);
         }
         public Color BrushColor
         {
@@ -66,6 +69,10 @@ namespace laba10
         {
             get { return _brush_size; }
             set { _brush_size = value; }
+        }
+        public void DrawImage(Image img, Point point)
+        {
+            g.DrawImage(img, point);
         }
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
@@ -272,8 +279,6 @@ namespace laba10
             }
             catch { }
         }
-
-
 
     }
 }
