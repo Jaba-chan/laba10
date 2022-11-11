@@ -76,7 +76,7 @@ namespace laba10
                         pb.SetIndex(1);
                     }
                 }
-
+                returned_img = objBitmap;
                 pb.DrawImage(objBitmap, new Point(0, 0));
             }
         }
